@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_viesac_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.viesac.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="priority" eval="50"/>
+        <field name="arch" type="xml">
+            <!-- Smart Button for VIESAC Audits -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_viesac_audits" type="object" class="oe_stat_button" icon="fa-shield">
+                    <field name="viesac_audit_count" widget="statinfo" string="VIESAC Audits"/>
+                </button>
+            </xpath>
+
+            <!-- Verification Action Buttons in Header or next to VAT -->
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="viesac_vat_status" readonly="1" widget="badge"
+                       decoration-success="viesac_vat_status == 'valid'"
+                       decoration-warning="viesac_vat_status in ('pending', 'limited_valid')"
+                       decoration-danger="viesac_vat_status in ('invalid', 'error')"/>
+                <button name="action_verify_vat" type="object" string="Verify VAT" class="btn btn-sm btn-outline-primary ms-1" icon="fa-check-circle" invisible="not vat"/>
+            </xpath>
+
+            <!-- Dedicated VIESAC Compliance Notebook Page -->
+            <xpath expr="//notebook" position="inside">
+                <page string="VIESAC Compliance &amp; EORI" name="viesac_compliance">
+                    <group>
+                        <group string="VAT / GST Verification Details">
+                            <field name="viesac_official_source" readonly="1"/>
+                            <field name="viesac_consultation_number" readonly="1" invisible="not viesac_consultation_number"/>
+                            <field name="viesac_last_reference" readonly="1" invisible="not viesac_last_reference"/>
+                            <field name="viesac_last_checked_at" readonly="1"/>
+                        </group>
+                        <group string="Customs &amp; EORI Identification">
+                            <field name="viesac_eori_same_as_vat"/>
+                            <label for="viesac_eori_number"/>
+                            <div class="o_row">
+                                <field name="viesac_eori_number"/>
+                                <button name="action_verify_eori" type="object" string="Verify EORI" class="btn btn-sm btn-outline-secondary ms-1" icon="fa-ship" invisible="not viesac_eori_number"/>
+                            </div>
+                            <field name="viesac_eori_status" readonly="1" widget="badge"
+                                   decoration-success="viesac_eori_status == 'valid'"
+                                   decoration-warning="viesac_eori_status in ('pending', 'limited_valid')"
+                                   decoration-danger="viesac_eori_status in ('invalid', 'error')"/>
+                        </group>
+                    </group>
+                    <div class="d-flex align-items-center justify-content-between p-3 bg-light rounded-lg border mt-3" invisible="not vat and not viesac_eori_number">
+                        <div>
+                            <strong class="text-dark">Official Dual Compliance Audit:</strong>
+                            <div class="text-muted small">Verify both VAT/GST and EORI customs registrations simultaneously and attach certified PDF &amp; XML audit defense files.</div>
+                        </div>
+                        <button name="action_verify_hybrid" type="object" string="Run Hybrid Audit (VAT + EORI)" class="btn btn-primary px-3 py-2 text-nowrap" icon="fa-shield"/>
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add Quick Status Column in Partner List/Tree View -->
+    <record id="view_partner_tree_viesac_inherit" model="ir.ui.view">
+        <field name="name">res.partner.tree.viesac.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="viesac_vat_status" readonly="1" widget="badge" optional="show"
+                       decoration-success="viesac_vat_status == 'valid'"
+                       decoration-warning="viesac_vat_status in ('pending', 'limited_valid')"
+                       decoration-danger="viesac_vat_status in ('invalid', 'error')"/>
+                <field name="viesac_eori_status" readonly="1" widget="badge" optional="hide"
+                       decoration-success="viesac_eori_status == 'valid'"
+                       decoration-warning="viesac_eori_status in ('pending', 'limited_valid')"
+                       decoration-danger="viesac_eori_status in ('invalid', 'error')"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
