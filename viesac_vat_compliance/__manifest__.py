@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'VIESAC: EU VIES VAT, GST & EORI Compliance',
-    'version': '16.0.1.0.3',
+    'version': '16.0.1.0.4',
     'category': 'Accounting/Accounting',
     'summary': 'EU VIES VAT validation, Global Tax Checks, EORI, Audit Certificates & Rates',
     'description': """

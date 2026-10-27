@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'VIESAC: eCommerce EU VIES & VAT Checkout',
-    'version': '16.0.1.0.3',
+    'version': '16.0.1.0.4',
     'category': 'Website/Website',
     'summary': 'Real-time EU VIES and global VAT number validation on eCommerce checkout',
     'description': """
