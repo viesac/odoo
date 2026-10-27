@@ -1,6 +1,6 @@
 /** @odoo-module **/
 import publicWidget from '@web/legacy/js/public/public_widget';
-import { jsonrpc } from '@web/core/network/rpc_service';
+import { rpc } from '@web/core/network/rpc';
 import { _t } from '@web/core/l10n/translation';
 
 publicWidget.registry.ViesacCheckoutVat = publicWidget.Widget.extend({
@@ -22,7 +22,9 @@ publicWidget.registry.ViesacCheckoutVat = publicWidget.Widget.extend({
     _onVatInput() {
         clearTimeout(this.typingTimer);
         const version = ++this.requestVersion;
-        const vat = this.$('#viesac_checkout_vat_input').val().trim();
+        const $input = this.$('#viesac_checkout_vat_input');
+        if (!$input.length) return;
+        const vat = ($input.val() || '').trim();
         this.$('#viesac_vat_status_indicator').addClass('d-none');
         if (vat.length >= 4) {
             this.typingTimer = setTimeout(() => this._performVatValidation(vat, version), 800);
@@ -36,7 +38,7 @@ publicWidget.registry.ViesacCheckoutVat = publicWidget.Widget.extend({
         $spinner.removeClass('d-none');
         $text.text(_t('Checking...'));
         try {
-            const data = await jsonrpc('/viesac/checkout/validate_vat', { vat });
+            const data = await rpc('/viesac/checkout/validate_vat', { vat });
             if (version !== this.requestVersion || this.isDestroyed()) return;
             $spinner.addClass('d-none');
             if (data.valid) {

@@ -163,7 +163,7 @@ class AccountMove(models.Model):
             'type': 'ir.actions.act_window',
             'name': 'VIESAC Audits',
             'res_model': 'viesac.audit.log',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('move_id', '=', self.id)],
             'context': {'default_move_id': self.id, 'default_partner_id': self.partner_id.id},
         }

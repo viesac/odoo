@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <odoo>
     <record id="view_viesac_tax_sync_wizard_form" model="ir.ui.view">
         <field name="name">viesac.tax.sync.wizard.form</field>
@@ -29,9 +29,5 @@
         <field name="target">new</field>
     </record>
 
-    <menuitem id="menu_viesac_tax_sync"
-              name="Tax Rate Assistant &amp; OSS"
-              parent="menu_viesac_root"
-              action="action_viesac_tax_sync_wizard"
-              sequence="30"/>
+    <menuitem id="menu_viesac_tax_sync" name="Tax Rate Assistant &amp; OSS" parent="menu_viesac_root" action="action_viesac_tax_sync_wizard" sequence="30"/>
 </odoo>

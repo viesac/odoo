@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'VIESAC: eCommerce EU VIES & VAT Checkout',
-    'version': '18.0.1.0.1',
+    'version': '18.0.1.0.3',
     'category': 'Website/Website',
     'summary': 'Real-time EU VIES and global VAT number validation on eCommerce checkout',
     'description': """
@@ -14,7 +14,7 @@ Key Features
 ------------
 * Real-time EU VIES (VAT Information Exchange System) registration check for B2B customers.
 * Supports intra-community EU transactions, UK HMRC, Norway, Switzerland, Australia and worldwide VAT formats.
-* Seamless integration with Odoo fiscal positions for zero-rated reverse charge tax treatment (0% VAT).
+* Tax treatment follows the store's configured Odoo fiscal positions; this extension does not automatically grant 0% VAT.
 * Session rate-limiting and intelligent cart caching to prevent scraping and abuse.
 * Secure and privacy-focused: offline format checks are explicitly marked unverified.
 * Back-office access to complete audit records and EORI checks via VIESAC Compliance module.
@@ -40,7 +40,7 @@ Web store, Tax exemption, Cart VAT check, B2B checkout, VAT validation, Fiscal p
     'currency': 'EUR',
     'images': [
         'static/description/banner.png',
-        'static/description/screenshot_checkout.png',
+        'static/description/screenshot_checkout.jpg',
     ],
     'depends': [
         'viesac_vat_compliance',

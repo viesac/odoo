@@ -103,7 +103,7 @@ class ViesacTaxSyncWizard(models.TransientModel):
             'type': 'ir.actions.act_window',
             'name': 'EU VAT Rates - Configure OSS with Your Accounting Localization',
             'res_model': 'viesac.vat.rate',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('country_code', 'in', EU_MEMBER_CODES)],
         }
 
@@ -114,7 +114,7 @@ class ViesacTaxSyncWizard(models.TransientModel):
             'type': 'ir.actions.act_window',
             'name': 'Review Company Taxes Against the VIESAC Catalog',
             'res_model': 'account.tax',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('company_id', '=', self.company_id.id)],
             'context': {'default_company_id': self.company_id.id},
         }

@@ -51,3 +51,12 @@ class TestCheckoutVat(TransactionCase):
             result = self.controller.validate_checkout_vat(vat='DE111111111')
         self.assertEqual(result['status'], 'rate_limited')
         self.assertEqual(api.call_count, 5)
+
+    def test_api_error_is_not_cached(self):
+        with patch('odoo.addons.viesac_website_sale.controllers.main.request', self.request), patch.object(
+                ViesacApiClient, 'validate_vat', side_effect=[{'error': 'Invalid API key'}, {'status': 'valid'}]) as api:
+            first = self.controller.validate_checkout_vat(vat='EE100247019')
+            second = self.controller.validate_checkout_vat(vat='EE100247019')
+        self.assertFalse(first['valid'])
+        self.assertTrue(second['valid'])
+        self.assertEqual(api.call_count, 2)

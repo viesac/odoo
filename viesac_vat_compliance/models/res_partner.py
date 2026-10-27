@@ -7,6 +7,37 @@ from .viesac_api_client import ViesacApiClient, DEFAULT_BASE_URL
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
+    def _viesac_replaces_native_vies(self):
+        params = self.env['ir.config_parameter'].sudo()
+        return bool((params.get_param('viesac.api_key', '') or '').strip()) and (
+            params.get_param('viesac.replace_odoo_vies', 'True').lower() in ('true', '1'))
+
+    @api.constrains('vat', 'country_id')
+    def check_vat(self):
+        # Never use no_vat_validation here: standard syntax/checksum checks must
+        # still reject typos. In this Odoo 17 build the network call is separate.
+        partners = self.with_context(viesac_skip_native_vies=True) if self._viesac_replaces_native_vies() else self
+        return super(ResPartner, partners).check_vat()
+
+    @api.depends('vies_vat_to_check')
+    def _compute_vies_valid(self):
+        if self.env.context.get('viesac_skip_native_vies') or self._viesac_replaces_native_vies():
+            # A global VAT result must not silently grant intra-EU tax exemption.
+            # The VIESAC status remains separate from the native VIES flag.
+            self.vies_valid = False
+            return
+        return super()._compute_vies_valid()
+
+    def _check_vies_iap(self):
+        if self.env.context.get('viesac_skip_native_vies') or self._viesac_replaces_native_vies():
+            return 'pending'
+        return super()._check_vies_iap()
+
+    def _check_vies_update_iap(self):
+        if self._viesac_replaces_native_vies():
+            return {}
+        return super()._check_vies_update_iap()
+
     viesac_vat_status = fields.Selection(
         selection=[
             ('unverified', 'Unverified'),
@@ -252,7 +283,7 @@ class ResPartner(models.Model):
             'type': 'ir.actions.act_window',
             'name': 'VIESAC Audits',
             'res_model': 'viesac.audit.log',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('partner_id', '=', self.id)],
             'context': {'default_partner_id': self.id},
         }

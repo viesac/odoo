@@ -34,7 +34,7 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_invoice_tree"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='state']" position="before">
+            <xpath expr="//list" position="inside">
                 <field name="viesac_compliance_verified" widget="boolean" optional="show" string="VIESAC Proof"/>
                 <field name="viesac_vat_status" widget="badge" optional="show"
                        decoration-success="viesac_vat_status == 'valid'"

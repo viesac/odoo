@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <odoo>
     <!-- Rates Tree View -->
     <record id="view_viesac_vat_rate_tree" model="ir.ui.view">
         <field name="name">viesac.vat.rate.tree</field>
         <field name="model">viesac.vat.rate</field>
         <field name="arch" type="xml">
-            <tree string="Global VAT / GST Rates Catalog" create="false" edit="false">
+            <list string="Global VAT / GST Rates Catalog" create="false" edit="false">
                 <field name="country_code"/>
                 <field name="country_name"/>
                 <field name="tax_abbr"/>
@@ -13,7 +13,7 @@
                 <field name="standard_rate" string="Standard Rate (%)"/>
                 <field name="verified_at"/>
                 <field name="last_sync_at" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -70,7 +70,7 @@
     <record id="action_viesac_vat_rate" model="ir.actions.act_window">
         <field name="name">Global VAT &amp; GST Rates</field>
         <field name="res_model">viesac.vat.rate</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Official global VAT/GST rates catalog
@@ -81,9 +81,5 @@
         </field>
     </record>
 
-    <menuitem id="menu_viesac_rates"
-              name="Global VAT Rates Catalog"
-              parent="menu_viesac_root"
-              action="action_viesac_vat_rate"
-              sequence="20"/>
+    <menuitem id="menu_viesac_rates" name="Global VAT Rates Catalog" parent="menu_viesac_root" action="action_viesac_vat_rate" sequence="20"/>
 </odoo>

@@ -19,7 +19,7 @@
                        decoration-success="viesac_vat_status == 'valid'"
                        decoration-warning="viesac_vat_status in ('pending', 'limited_valid')"
                        decoration-danger="viesac_vat_status in ('invalid', 'error')"/>
-                <button name="action_verify_vat" type="object" string="Verify VAT" class="btn btn-sm btn-outline-primary ms-1" icon="fa-check-circle" invisible="not vat"/>
+                <button name="action_verify_vat" type="object" string="Verify VAT" class="btn btn-sm btn-outline-primary ms-1 text-nowrap" style="min-width: 140px; white-space: nowrap;" icon="fa-check-circle" invisible="not vat"/>
             </xpath>
 
             <!-- Dedicated VIESAC Compliance Notebook Page -->

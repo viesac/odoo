@@ -10,6 +10,10 @@
                 <block title="VIESAC Global VAT, GST &amp; EORI Compliance" id="viesac_settings_section" groups="base.group_system">
                     <setting id="viesac_api_settings" string="API Connection" help="One VIESAC API account is shared by this Odoo database. Registry availability and certificate downloads depend on your VIESAC plan.">
                         <div class="content-group">
+                            <div class="row mt8">
+                                <field name="viesac_replace_odoo_vies" class="col-lg-1"/>
+                                <label for="viesac_replace_odoo_vies" class="col-lg-11 o_light_label"/>
+                            </div>
                             <div class="row mt16">
                                 <label for="viesac_api_key" class="col-lg-3 o_light_label"/>
                                 <field name="viesac_api_key" password="True"/>

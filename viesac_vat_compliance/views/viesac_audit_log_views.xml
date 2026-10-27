@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <odoo>
     <!-- Audit Form View -->
     <record id="view_viesac_audit_log_form" model="ir.ui.view">
@@ -28,7 +28,7 @@
                             <field name="official_source" readonly="1"/>
                             <field name="consultation_number" readonly="1" invisible="not consultation_number"/>
                             <field name="requested_at" readonly="1"/>
-                            <field name="certificate_url" widget="url" readonly="1"/>
+                            <field name="certificate_url" widget="url" text="Open certificate" readonly="1"/>
                         </group>
                     </group>
 
@@ -76,7 +76,7 @@
         <field name="name">viesac.audit.log.tree</field>
         <field name="model">viesac.audit.log</field>
         <field name="arch" type="xml">
-            <tree string="VIESAC Compliance Audits" decoration-success="status == 'valid'" decoration-warning="status in ('pending', 'limited_valid')" decoration-danger="status in ('invalid', 'error')">
+            <list string="VIESAC Compliance Audits" decoration-success="status == 'valid'" decoration-warning="status in ('pending', 'limited_valid')" decoration-danger="status in ('invalid', 'error')">
                 <field name="requested_at"/>
                 <field name="name" string="Audit Reference"/>
                 <field name="partner_id"/>
@@ -86,11 +86,8 @@
                 <field name="official_source"/>
                 <field name="consultation_number"/>
                 <field name="invoice_number" optional="show"/>
-                <field name="status" widget="badge"
-                       decoration-success="status == 'valid'"
-                       decoration-warning="status in ('pending', 'limited_valid')"
-                       decoration-danger="status in ('invalid', 'error')"/>
-            </tree>
+                <field name="status" widget="badge" decoration-success="status == 'valid'" decoration-warning="status in ('pending', 'limited_valid')" decoration-danger="status in ('invalid', 'error')"/>
+            </list>
         </field>
     </record>
 
@@ -124,7 +121,7 @@
     <record id="action_viesac_audit_log" model="ir.actions.act_window">
         <field name="name">VIESAC Audit Proofs</field>
         <field name="res_model">viesac.audit.log</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 No compliance audits recorded yet!
@@ -136,14 +133,7 @@
     </record>
 
     <!-- Main Menu Structure under Invoicing -->
-    <menuitem id="menu_viesac_root"
-              name="VIESAC Compliance"
-              parent="account.menu_finance"
-              sequence="25"/>
+    <menuitem id="menu_viesac_root" name="VIESAC Compliance" parent="account.menu_finance" sequence="25"/>
 
-    <menuitem id="menu_viesac_audits"
-              name="Audit Proof Archive"
-              parent="menu_viesac_root"
-              action="action_viesac_audit_log"
-              sequence="10"/>
+    <menuitem id="menu_viesac_audits" name="Audit Proof Archive" parent="menu_viesac_root" action="action_viesac_audit_log" sequence="10"/>
 </odoo>

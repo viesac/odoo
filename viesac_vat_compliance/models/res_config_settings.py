@@ -33,6 +33,15 @@ AVAILABLE_LOCALES = [
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
+    viesac_replace_odoo_vies = fields.Boolean(
+        string='Use VIESAC for Online VAT Checks',
+        config_parameter='viesac.replace_odoo_vies',
+        default=True,
+        help='When an API key is configured, prevent duplicate standard Odoo VIES network calls. '
+             'Odoo local VAT syntax and checksum validation remains enabled. '
+             'Live VIESAC checks run through Verify VAT, checkout and document audits.',
+    )
+
     viesac_api_key = fields.Char(
         groups='base.group_system',
         string='VIESAC API Key',
