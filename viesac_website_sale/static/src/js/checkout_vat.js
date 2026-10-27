@@ -22,7 +22,9 @@ publicWidget.registry.ViesacCheckoutVat = publicWidget.Widget.extend({
     _onVatInput() {
         clearTimeout(this.typingTimer);
         const version = ++this.requestVersion;
-        const vat = this.$('#viesac_checkout_vat_input').val().trim();
+        const $input = this.$('#viesac_checkout_vat_input');
+        if (!$input.length) return;
+        const vat = ($input.val() || '').trim();
         this.$('#viesac_vat_status_indicator').addClass('d-none');
         if (vat.length >= 4) {
             this.typingTimer = setTimeout(() => this._performVatValidation(vat, version), 800);

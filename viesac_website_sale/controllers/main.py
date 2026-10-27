@@ -21,7 +21,7 @@ class ViesacWebsiteSaleController(http.Controller):
         cache = request.session.get('viesac_vat_cache', {})
         now = time.time()
         entry = cache.get(vat)
-        if entry and now - entry['at'] < 300:
+        if entry and entry['result'].get('status') in ('valid', 'invalid') and now - entry['at'] < 300:
             return entry['result']
         attempts = [t for t in request.session.get('viesac_vat_attempts', []) if now - t < 60]
         if len(attempts) >= 5:
@@ -39,6 +39,7 @@ class ViesacWebsiteSaleController(http.Controller):
         response = {'valid': status == 'valid', 'status': status, 'source': result.get('source')}
         # Never return company details from a quick validation.
         cache = {k: v for k, v in cache.items() if now - v['at'] < 300}
-        cache[vat] = {'at': now, 'result': response}
+        if status in ('valid', 'invalid'):
+            cache[vat] = {'at': now, 'result': response}
         request.session['viesac_vat_cache'] = cache
         return response

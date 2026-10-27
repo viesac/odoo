@@ -28,7 +28,7 @@ class TestViesacVatCompliance(AccountTestInvoicingCommon):
         self.param_obj.set_param('viesac.api_key', '')
         partner = self.env['res.partner'].create({
             'name': 'Offline Format Test Partner',
-            'vat': 'DE123456789',
+            'vat': 'DE123456788',
             'country_id': self.env.ref('base.de').id,
         })
         res = partner.action_verify_vat()

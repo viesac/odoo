@@ -28,7 +28,7 @@
                             <field name="official_source" readonly="1"/>
                             <field name="consultation_number" readonly="1" invisible="not consultation_number"/>
                             <field name="requested_at" readonly="1"/>
-                            <field name="certificate_url" widget="url" readonly="1"/>
+                            <field name="certificate_url" widget="url" text="Open certificate" readonly="1"/>
                         </group>
                     </group>
 

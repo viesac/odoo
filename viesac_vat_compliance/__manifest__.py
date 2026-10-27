@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'VIESAC: EU VIES VAT, GST & EORI Compliance',
-    'version': '17.0.1.0.1',
+    'version': '17.0.1.0.2',
     'category': 'Accounting/Accounting',
     'summary': 'EU VIES VAT validation, Global Tax Checks, EORI, Audit Certificates & Rates',
     'description': """
@@ -77,16 +77,17 @@ Uses the requests library included with Odoo.
     'price': 0.0,
     'currency': 'EUR',
     'images': [
-        'static/description/banner.png',
-        'static/description/screenshot_customers.png',
-        'static/description/screenshot_invoices.png',
-        'static/description/screenshot_orders.png',
+        'static/description/screenshot_customers.jpg',
+        'static/description/screenshot_audit.jpg',
+        'static/description/screenshot_invoices.jpg',
+        'static/description/screenshot_orders.jpg',
     ],
     'depends': [
         'base',
         'mail',
         'contacts',
         'account',
+        'base_vat',
         'sale_management',
         'purchase',
         'sale_stock',
@@ -110,4 +111,5 @@ Uses the requests library included with Odoo.
     'installable': True,
     'application': True,
     'auto_install': False,
+    'post_init_hook': 'post_init_hook',
 }
