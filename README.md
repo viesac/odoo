@@ -7,7 +7,7 @@ VAT/GST and EORI checks, audit records and verification evidence in Odoo, with a
 | [`viesac_vat_compliance`](viesac_vat_compliance) | Contacts, sales, purchases, invoices, delivery holds, audit archive and VAT rates catalog. |
 | [`viesac_website_sale`](viesac_website_sale) | VAT registration status on the `website_sale` billing address form. Requires the main module. |
 
-Current version: **17.0.1.0.3**. This branch targets Odoo 17.
+Current version: **17.0.1.0.4**. This branch targets Odoo 17.
 
 ## Installation
 

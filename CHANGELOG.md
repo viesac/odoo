@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.0.1.0.4
+
+- Add explicit inline margins and text spacing between feature badges in both app descriptions, including wrapped rows.
+
 ## 17.0.1.0.3
 
 - Restore and preserve the original feature covers for both modules.
