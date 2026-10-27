@@ -21,6 +21,8 @@
                                     <div class="row mt8">
                                         <label for="viesac_api_key" class="col-lg-3 o_light_label"/>
                                         <field name="viesac_api_key" password="True"/>
+                                        <field name="viesac_replace_odoo_vies"/>
+                                        <label for="viesac_replace_odoo_vies"/>
                                     </div>
                                     <div class="row mt8" groups="base.group_no_one">
                                         <label for="viesac_base_url" class="col-lg-3 o_light_label"/>
@@ -28,7 +30,7 @@
                                     </div>
                                     <div class="mt16">
                                         <button name="action_test_viesac_connection" type="object" string="Test Connection &amp; Check Quota" class="btn btn-primary"/>
-                                        <a href="https://viesac.eu/app/api" target="_blank" role="button" class="btn btn-link ms-2">Get API Key on VIESAC Portal â†—</a>
+                                        <a href="https://viesac.eu/app/api" target="_blank" role="button" class="btn btn-link ms-2">Get API Key on VIESAC Portal ↗</a>
                                     </div>
                                 </div>
                             </div>

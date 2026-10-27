@@ -7,6 +7,33 @@ from .viesac_api_client import ViesacApiClient, DEFAULT_BASE_URL
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
+    def _viesac_replaces_native_vies(self):
+        params = self.env['ir.config_parameter'].sudo()
+        return bool((params.get_param('viesac.api_key', '') or '').strip()) and (
+            params.get_param('viesac.replace_odoo_vies', 'True').lower() in ('true', '1'))
+
+    @api.constrains('vat', 'country_id')
+    def check_vat(self):
+        # Never use no_vat_validation here: standard syntax/checksum checks must
+        # still reject typos. In this Odoo 17 build the network call is separate.
+        partners = self.with_context(viesac_skip_native_vies=True) if self._viesac_replaces_native_vies() else self
+        return super(ResPartner, partners).check_vat()
+
+    @api.onchange('vat', 'country_id')
+    def _onchange_check_vies(self):
+        if self.env.context.get('viesac_skip_native_vies') or self._viesac_replaces_native_vies():
+            self.vies_failed_message = False
+            return
+        return super()._onchange_check_vies()
+
+    @api.model
+    def vies_vat_check(self, country_code, vat_number):
+        if self.env.context.get('viesac_skip_native_vies') or self._viesac_replaces_native_vies():
+            # Preserve the standard offline test without starting a SOAP request.
+            # This result is never written as a verified VIESAC registry status.
+            return self.simple_vat_check(country_code, vat_number)
+        return super().vies_vat_check(country_code, vat_number)
+
     viesac_vat_status = fields.Selection(
         selection=[
             ('unverified', 'Unverified'),

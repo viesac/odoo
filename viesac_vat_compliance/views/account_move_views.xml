@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <odoo>
     <record id="view_move_form_viesac_inherit" model="ir.ui.view">
         <field name="name">account.move.form.viesac.inherit</field>
@@ -16,12 +16,9 @@
             <xpath expr="//group[@id='other_tab_group']" position="inside">
                 <group string="VIESAC Tax &amp; Customs Compliance" name="viesac_compliance_info">
                     <field name="viesac_compliance_verified" widget="boolean_toggle" readonly="1"/>
-                    <field name="viesac_vat_status" widget="badge"
-                           decoration-success="viesac_vat_status == 'valid'"
-                           decoration-warning="viesac_vat_status in ('pending', 'limited_valid')"
-                           decoration-danger="viesac_vat_status in ('invalid', 'error')"/>
-                    <field name="viesac_official_source" readonly="1" attrs="'invisible': [('viesac_official_source', '=', False)]"/>
-                    <field name="viesac_consultation_number" readonly="1" attrs="'invisible': [('viesac_consultation_number', '=', False)]"/>
+                    <field name="viesac_vat_status" widget="badge" decoration-success="viesac_vat_status == 'valid'" decoration-warning="viesac_vat_status in ('pending', 'limited_valid')" decoration-danger="viesac_vat_status in ('invalid', 'error')"/>
+                    <field name="viesac_official_source" readonly="1" attrs="{'invisible': [('viesac_official_source', '=', False)]}"/>
+                    <field name="viesac_consultation_number" readonly="1" attrs="{'invisible': [('viesac_consultation_number', '=', False)]}"/>
                     <field name="viesac_customs_declaration_number" placeholder="MRN / Customs Number"/>
                 </group>
             </xpath>
@@ -36,10 +33,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='state']" position="before">
                 <field name="viesac_compliance_verified" widget="boolean" optional="show" string="VIESAC Proof"/>
-                <field name="viesac_vat_status" widget="badge" optional="show"
-                       decoration-success="viesac_vat_status == 'valid'"
-                       decoration-warning="viesac_vat_status in ('pending', 'limited_valid')"
-                       decoration-danger="viesac_vat_status in ('invalid', 'error')"/>
+                <field name="viesac_vat_status" widget="badge" optional="show" decoration-success="viesac_vat_status == 'valid'" decoration-warning="viesac_vat_status in ('pending', 'limited_valid')" decoration-danger="viesac_vat_status in ('invalid', 'error')"/>
             </xpath>
         </field>
     </record>

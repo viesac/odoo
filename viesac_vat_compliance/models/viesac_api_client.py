@@ -75,7 +75,7 @@ class ViesacApiClient:
             'Authorization': f'Bearer {api_key}',
             'Accept': 'application/json',
             'X-Client': 'odoo',
-            'User-Agent': 'VIESAC-Odoo/17.0',
+            'User-Agent': 'VIESAC-Odoo/16.0',
         }
         if idempotency_key:
             headers['Idempotency-Key'] = idempotency_key

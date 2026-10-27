@@ -16,6 +16,16 @@ from ..models.viesac_api_client import ViesacApiClient
 @tagged('post_install', '-at_install')
 class TestViesacVatCompliance(AccountTestInvoicingCommon):
 
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.simple_accountman = common.new_test_user(
+            cls.env, login='viesac_account_user',
+            groups='account.group_account_user',
+            company_id=cls.env.company.id,
+            company_ids=[(6, 0, cls.env.user.company_ids.ids)],
+        )
+
     def setUp(self):
         super().setUp()
         self.param_obj = self.env['ir.config_parameter'].sudo()
@@ -28,7 +38,7 @@ class TestViesacVatCompliance(AccountTestInvoicingCommon):
         self.param_obj.set_param('viesac.api_key', '')
         partner = self.env['res.partner'].create({
             'name': 'Offline Format Test Partner',
-            'vat': 'DE123456789',
+            'vat': 'DE123456788',
             'country_id': self.env.ref('base.de').id,
         })
         res = partner.action_verify_vat()
