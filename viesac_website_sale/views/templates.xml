@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="address_viesac_inherit" inherit_id="website_sale.address">
+        <xpath expr="//input[@name='vat']/.." position="replace">
+            <div t-attf-class="col-12 col-md-6 mb-3 #{error.get('vat') and 'o_has_error' or ''}">
+                <label class="col-form-label" for="viesac_checkout_vat_input">Tax ID / VAT Number</label>
+                <div class="input-group">
+                    <input type="text" name="vat" id="viesac_checkout_vat_input"
+                           t-attf-class="form-control #{error.get('vat') and 'is-invalid' or ''}"
+                           t-att-value="'vat' in checkout and checkout['vat']"
+                           t-att-readonly="not can_edit_vat or None"
+                           placeholder="e.g. DE123456789, FR12345678901, GB123456789"/>
+                    <span class="input-group-text d-none" id="viesac_vat_status_indicator" role="status" aria-live="polite">
+                        <i class="fa fa-spinner fa-spin text-muted" id="viesac_vat_spinner"></i>
+                        <span id="viesac_vat_status_text" class="small fw-bold ms-1"></span>
+                    </span>
+                </div>
+                <div class="form-text text-muted small">
+                    VAT registration check via VIESAC. Tax treatment follows the store's configured tax rules. Company details are not available in this quick check.
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

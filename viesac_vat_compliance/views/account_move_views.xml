@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_viesac_inherit" model="ir.ui.view">
+        <field name="name">account.move.form.viesac.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <!-- Smart Button for VIESAC Audits -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_viesac_audits" type="object" class="oe_stat_button" icon="fa-shield">
+                    <field name="viesac_audit_count" widget="statinfo" string="VIESAC Audits"/>
+                </button>
+            </xpath>
+
+            <!-- Status ribbon / info in Other Info tab -->
+            <xpath expr="//group[@id='other_tab_group']" position="inside">
+                <group string="VIESAC Tax &amp; Customs Compliance" name="viesac_compliance_info">
+                    <field name="viesac_compliance_verified" widget="boolean_toggle" readonly="1"/>
+                    <field name="viesac_vat_status" widget="badge"
+                           decoration-success="viesac_vat_status == 'valid'"
+                           decoration-warning="viesac_vat_status in ('pending', 'limited_valid')"
+                           decoration-danger="viesac_vat_status in ('invalid', 'error')"/>
+                    <field name="viesac_official_source" readonly="1" invisible="not viesac_official_source"/>
+                    <field name="viesac_consultation_number" readonly="1" invisible="not viesac_consultation_number"/>
+                    <field name="viesac_customs_declaration_number" placeholder="MRN / Customs Number"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Invoice Tree View Status Column -->
+    <record id="view_invoice_tree_viesac_inherit" model="ir.ui.view">
+        <field name="name">account.move.tree.viesac.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="viesac_compliance_verified" widget="boolean" optional="show" string="VIESAC Proof"/>
+                <field name="viesac_vat_status" widget="badge" optional="show"
+                       decoration-success="viesac_vat_status == 'valid'"
+                       decoration-warning="viesac_vat_status in ('pending', 'limited_valid')"
+                       decoration-danger="viesac_vat_status in ('invalid', 'error')"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

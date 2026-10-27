@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="rule_viesac_audit_company" model="ir.rule">
+        <field name="name">VIESAC audits: allowed companies</field>
+        <field name="model_id" ref="model_viesac_audit_log"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

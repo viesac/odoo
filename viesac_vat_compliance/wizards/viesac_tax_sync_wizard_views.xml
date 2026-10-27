@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_viesac_tax_sync_wizard_form" model="ir.ui.view">
+        <field name="name">viesac.tax.sync.wizard.form</field>
+        <field name="model">viesac.tax.sync.wizard</field>
+        <field name="arch" type="xml">
+            <form string="VIESAC Tax Rate Assistant">
+                <group>
+                    <div class="alert alert-info" role="alert">
+                        Add a company standard tax or review rates. OSS fiscal positions, reporting grids and tax changes require configuration in your Odoo accounting localization. Existing taxes are never archived automatically.
+                    </div>
+                    <group>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="action_type" widget="radio"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_execute_tax_sync" type="object" string="Execute Synchronization" class="btn btn-primary"/>
+                    <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_viesac_tax_sync_wizard" model="ir.actions.act_window">
+        <field name="name">Tax Rate Assistant &amp; OSS</field>
+        <field name="res_model">viesac.tax.sync.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_viesac_tax_sync"
+              name="Tax Rate Assistant &amp; OSS"
+              parent="menu_viesac_root"
+              action="action_viesac_tax_sync_wizard"
+              sequence="30"/>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_viesac_bulk_check_wizard_form" model="ir.ui.view">
+        <field name="name">viesac.bulk.check.wizard.form</field>
+        <field name="model">viesac.bulk.check.wizard</field>
+        <field name="arch" type="xml">
+            <form string="VIESAC Bulk Partner Verification">
+                <group>
+                    <div class="alert alert-info" role="alert">
+                        Verify multiple customer or supplier tax IDs and EORI registrations in bulk against official government registries.
+                    </div>
+                    <group>
+                        <field name="total_partners" readonly="1" string="Partners Selected"/>
+                        <field name="check_type" widget="radio"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_process_bulk_check" type="object" string="Start Bulk Verification" class="btn btn-primary"/>
+                    <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_viesac_bulk_check_wizard" model="ir.actions.act_window">
+        <field name="name">VIESAC: Bulk Verify VAT / EORI</field>
+        <field name="res_model">viesac.bulk.check.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

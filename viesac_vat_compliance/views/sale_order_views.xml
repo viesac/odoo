@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_viesac_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.viesac.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Smart Button for VIESAC Audits -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_viesac_audits" type="object" class="oe_stat_button" icon="fa-shield">
+                    <field name="viesac_audit_count" widget="statinfo" string="VIESAC Audits"/>
+                </button>
+            </xpath>
+
+            <!-- Delivery Held Alert Banner -->
+            <xpath expr="//header" position="after">
+                <div class="alert alert-warning mb-0 text-center" role="alert" invisible="not viesac_delivery_held">
+                    <strong>VIESAC Compliance Notice:</strong> Outgoing delivery is temporarily on hold pending government confirmation of customer VAT registration.
+                </div>
+            </xpath>
+
+            <!-- Customs & Tax Details -->
+            <xpath expr="//group[@name='sale_shipping']" position="inside">
+                <field name="viesac_customs_declaration_number" placeholder="e.g. 26DE12345678901234"/>
+                <field name="viesac_vat_status" widget="badge"
+                       decoration-success="viesac_vat_status == 'valid'"
+                       decoration-warning="viesac_vat_status in ('pending', 'limited_valid')"
+                       decoration-danger="viesac_vat_status in ('invalid', 'error')"/>
+                <field name="viesac_delivery_held" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Order Tree View Status Badge -->
+    <record id="view_quotation_tree_viesac_inherit" model="ir.ui.view">
+        <field name="name">sale.order.tree.viesac.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="viesac_vat_status" widget="badge" optional="show"
+                       decoration-success="viesac_vat_status == 'valid'"
+                       decoration-warning="viesac_vat_status in ('pending', 'limited_valid')"
+                       decoration-danger="viesac_vat_status in ('invalid', 'error')"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

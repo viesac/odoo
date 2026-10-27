@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document_viesac" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@id='qrcode']" position="before">
+            <t t-if="o.viesac_audit_ids">
+                <div class="row mt-3 mb-3" style="font-size: 0.85rem; border-top: 1px solid #dee2e6; padding-top: 8px;">
+                    <div class="col-12 text-muted">
+                        <strong style="color: #26324B;">VIESAC Tax &amp; Customs Compliance Verification:</strong><br/>
+                        <span>• VAT Status: <b><t t-esc="o.viesac_vat_status.upper()"/></b></span>
+                        <t t-if="o.viesac_audit_ids[:1].name">
+                            <span class="ms-2">• Audit Ref: <b><t t-esc="o.viesac_audit_ids[:1].name"/></b></span>
+                        </t>
+                        <t t-if="o.viesac_official_source">
+                            <span class="ms-2">• Source: <b><t t-esc="o.viesac_official_source"/></b></span>
+                        </t>
+                        <t t-if="o.viesac_consultation_number">
+                            <span class="ms-2">• VIES Consultation #: <b><t t-esc="o.viesac_consultation_number"/></b></span>
+                        </t>
+                        <t t-if="o.viesac_customs_declaration_number">
+                            <span class="ms-2">• Customs MRN: <b><t t-esc="o.viesac_customs_declaration_number"/></b></span>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

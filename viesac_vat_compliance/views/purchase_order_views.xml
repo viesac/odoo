@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_order_form_viesac_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.form.viesac.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Smart Button for VIESAC Audits -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_viesac_audits" type="object" class="oe_stat_button" icon="fa-shield">
+                    <field name="viesac_audit_count" widget="statinfo" string="VIESAC Audits"/>
+                </button>
+            </xpath>
+
+            <!-- Supplier Compliance Details -->
+            <xpath expr="//field[@name='partner_ref']" position="after">
+                <field name="viesac_vendor_vat_status" widget="badge"
+                       decoration-success="viesac_vendor_vat_status == 'valid'"
+                       decoration-warning="viesac_vendor_vat_status in ('pending', 'limited_valid')"
+                       decoration-danger="viesac_vendor_vat_status in ('invalid', 'error')"/>
+                <field name="viesac_customs_declaration_number" placeholder="MRN / Customs Entry №"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

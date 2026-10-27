@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_viesac_audit_log_user,viesac.audit.log.user,model_viesac_audit_log,base.group_user,1,0,0,0
+access_viesac_audit_log_accountant,viesac.audit.log.accountant,model_viesac_audit_log,account.group_account_invoice,1,1,1,0
+access_viesac_audit_log_manager,viesac.audit.log.manager,model_viesac_audit_log,account.group_account_manager,1,1,1,1
+access_viesac_audit_log_sales,viesac.audit.log.sales,model_viesac_audit_log,sales_team.group_sale_salesman,1,1,1,0
+access_viesac_audit_log_purchase,viesac.audit.log.purchase,model_viesac_audit_log,purchase.group_purchase_user,1,1,1,0
+access_viesac_vat_rate_user,viesac.vat.rate.user,model_viesac_vat_rate,base.group_user,1,0,0,0
+access_viesac_vat_rate_manager,viesac.vat.rate.manager,model_viesac_vat_rate,account.group_account_manager,1,1,1,1
+access_viesac_bulk_check_wizard_user,viesac.bulk.check.wizard.user,model_viesac_bulk_check_wizard,base.group_user,1,1,1,1
+access_viesac_tax_sync_wizard_manager,viesac.tax.sync.wizard.manager,model_viesac_tax_sync_wizard,account.group_account_manager,1,1,1,1
