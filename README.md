@@ -7,7 +7,7 @@ VAT/GST and EORI checks, audit records and verification evidence in Odoo, with a
 | [`viesac_vat_compliance`](viesac_vat_compliance) | Contacts, sales, purchases, invoices, delivery holds, audit archive and VAT rates catalog. |
 | [`viesac_website_sale`](viesac_website_sale) | VAT registration status on the `website_sale` billing address form. Requires the main module. |
 
-Current version: **17.0.1.0.2**. This branch targets Odoo 17.
+Current version: **17.0.1.0.3**. This branch targets Odoo 17.
 
 ## Installation
 
@@ -65,6 +65,10 @@ For optional webhooks, configure a public HTTPS URL ending in `/viesac/webhook` 
 The optional checkout extension displays **VALID**, **INVALID**, **PENDING** or **UNVERIFIED** beside the Tax ID field for an active cart. Recent conclusive results use a session cache; temporary errors are not cached as verification results.
 
 Quick checks do not create audit certificates or return company names and addresses. Tax treatment follows the store's configured fiscal positions and accounting localization. The status request does not modify the fiscal position or automatically apply 0% VAT. EORI verification remains in the back office.
+
+## Presentation
+
+The original feature covers are retained as the first manifest images. Descriptions use inline styles, explicit spacing between blocks and centered screenshots limited to 720 px without upscaling.
 
 ## Screenshots
 

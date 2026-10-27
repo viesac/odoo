@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'VIESAC: eCommerce EU VIES & VAT Checkout',
-    'version': '17.0.1.0.2',
+    'version': '17.0.1.0.3',
     'category': 'Website/Website',
     'summary': 'Real-time EU VIES and global VAT number validation on eCommerce checkout',
     'description': """
@@ -39,6 +39,7 @@ Web store, Tax exemption, Cart VAT check, B2B checkout, VAT validation, Fiscal p
     'price': 0.0,
     'currency': 'EUR',
     'images': [
+        'static/description/banner.png',
         'static/description/screenshot_checkout.jpg',
     ],
     'depends': [
