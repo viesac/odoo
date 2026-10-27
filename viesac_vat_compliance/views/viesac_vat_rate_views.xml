@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Rates Tree View -->
+    <record id="view_viesac_vat_rate_tree" model="ir.ui.view">
+        <field name="name">viesac.vat.rate.tree</field>
+        <field name="model">viesac.vat.rate</field>
+        <field name="arch" type="xml">
+            <tree string="Global VAT / GST Rates Catalog" create="false" edit="false">
+                <field name="country_code"/>
+                <field name="country_name"/>
+                <field name="tax_abbr"/>
+                <field name="currency"/>
+                <field name="standard_rate" string="Standard Rate (%)"/>
+                <field name="verified_at"/>
+                <field name="last_sync_at" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Rates Form View -->
+    <record id="view_viesac_vat_rate_form" model="ir.ui.view">
+        <field name="name">viesac.vat.rate.form</field>
+        <field name="model">viesac.vat.rate</field>
+        <field name="arch" type="xml">
+            <form string="Official National VAT/GST Rate" create="false" edit="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="country_name" readonly="1"/> (<field name="country_code" readonly="1"/>)
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Standard Rate">
+                            <field name="standard_rate" readonly="1"/>
+                            <field name="tax_abbr" readonly="1"/>
+                            <field name="currency" readonly="1"/>
+                        </group>
+                        <group string="Verification Metadata">
+                            <field name="verified_at" readonly="1"/>
+                            <field name="last_sync_at" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Reduced &amp; Super-Reduced Rates" name="reduced_rates">
+                            <field name="reduced_rates_json" widget="ace" options="{'mode': 'json'}" readonly="1"/>
+                        </page>
+                        <page string="Special &amp; Regional Territories" name="special_rates">
+                            <field name="special_rates_json" widget="ace" options="{'mode': 'json'}" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_viesac_vat_rate_search" model="ir.ui.view">
+        <field name="name">viesac.vat.rate.search</field>
+        <field name="model">viesac.vat.rate</field>
+        <field name="arch" type="xml">
+            <search string="Search VAT Rates">
+                <field name="country_code"/>
+                <field name="country_name"/>
+                <field name="tax_abbr"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action & Menu -->
+    <record id="action_viesac_vat_rate" model="ir.actions.act_window">
+        <field name="name">Global VAT &amp; GST Rates</field>
+        <field name="res_model">viesac.vat.rate</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Official global VAT/GST rates catalog
+            </p>
+            <p>
+                Synchronized daily from VIESAC. Use the Tax Rate Assistant to add a company standard tax or review EU destination rates. Configure OSS reporting in your accounting localization.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_viesac_rates"
+              name="Global VAT Rates Catalog"
+              parent="menu_viesac_root"
+              action="action_viesac_vat_rate"
+              sequence="20"/>
+</odoo>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Audit Form View -->
+    <record id="view_viesac_audit_log_form" model="ir.ui.view">
+        <field name="name">viesac.audit.log.form</field>
+        <field name="model">viesac.audit.log</field>
+        <field name="arch" type="xml">
+            <form string="VIESAC Compliance Audit Proof">
+                <header>
+                    <button name="action_refresh_status" type="object" string="Refresh from VIESAC" class="btn btn-secondary"/>
+                    <field name="status" widget="statusbar" statusbar_visible="pending,limited_valid,valid,invalid"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Audited Entity">
+                            <field name="partner_id" readonly="1"/>
+                            <field name="audit_type" readonly="1"/>
+                            <field name="country_code" readonly="1"/>
+                            <field name="vat_number" readonly="1" attrs="'invisible': [('audit_type', '=', 'eori')]"/>
+                            <field name="eori_country_code" readonly="1" attrs="'invisible': [('audit_type', '=', 'vat')]"/>
+                            <field name="eori_number" readonly="1" attrs="'invisible': [('audit_type', '=', 'vat')]"/>
+                        </group>
+                        <group string="Verification Results">
+                            <field name="official_source" readonly="1"/>
+                            <field name="consultation_number" readonly="1" attrs="'invisible': [('consultation_number', '=', False)]"/>
+                            <field name="requested_at" readonly="1"/>
+                            <field name="certificate_url" widget="url" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Attached Official Certificates" name="certificates">
+                            <group>
+                                <group string="VAT / GST Proofs">
+                                    <field name="pdf_attachment_id" readonly="1"/>
+                                    <field name="xml_attachment_id" readonly="1"/>
+                                </group>
+                                <group string="Customs &amp; EORI Proofs" attrs="'invisible': [('audit_type', '=', 'vat')]">
+                                    <field name="eori_pdf_attachment_id" readonly="1"/>
+                                    <field name="eori_xml_attachment_id" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Linked ERP Documents" name="linked_documents">
+                            <group>
+                                <field name="sale_order_id" readonly="1"/>
+                                <field name="purchase_order_id" readonly="1"/>
+                                <field name="move_id" readonly="1"/>
+                                <field name="order_number" readonly="1"/>
+                                <field name="invoice_number" readonly="1"/>
+                                <field name="customs_declaration_number" readonly="1"/>
+                            </group>
+                        </page>
+
+                        <page string="Cryptographic Audit Evidence JSON" name="evidence">
+                            <field name="evidence_json" widget="ace" options="{'mode': 'json'}" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Audit Tree View -->
+    <record id="view_viesac_audit_log_tree" model="ir.ui.view">
+        <field name="name">viesac.audit.log.tree</field>
+        <field name="model">viesac.audit.log</field>
+        <field name="arch" type="xml">
+            <tree string="VIESAC Compliance Audits" decoration-success="status == 'valid'" decoration-warning="status in ('pending', 'limited_valid')" decoration-danger="status in ('invalid', 'error')">
+                <field name="requested_at"/>
+                <field name="name" string="Audit Reference"/>
+                <field name="partner_id"/>
+                <field name="audit_type"/>
+                <field name="vat_number"/>
+                <field name="eori_number" optional="hide"/>
+                <field name="official_source"/>
+                <field name="consultation_number"/>
+                <field name="invoice_number" optional="show"/>
+                <field name="status" widget="badge"
+                       decoration-success="status == 'valid'"
+                       decoration-warning="status in ('pending', 'limited_valid')"
+                       decoration-danger="status in ('invalid', 'error')"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_viesac_audit_log_search" model="ir.ui.view">
+        <field name="name">viesac.audit.log.search</field>
+        <field name="model">viesac.audit.log</field>
+        <field name="arch" type="xml">
+            <search string="Search VIESAC Audits">
+                <field name="name" string="Reference"/>
+                <field name="partner_id"/>
+                <field name="vat_number"/>
+                <field name="eori_number"/>
+                <field name="consultation_number"/>
+                <filter string="Valid Audits" name="filter_valid" domain="[('status', '=', 'valid')]"/>
+                <filter string="Pending Confirmation" name="filter_pending" domain="[('status', 'in', ('pending', 'limited_valid'))]"/>
+                <filter string="Invalid Tax IDs" name="filter_invalid" domain="[('status', '=', 'invalid')]"/>
+                <separator/>
+                <filter string="Hybrid (VAT + EORI)" name="filter_hybrid" domain="[('audit_type', '=', 'vat_eori')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_by_status" context="{'group_by': 'status'}"/>
+                    <filter string="Partner" name="group_by_partner" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Audit Type" name="group_by_type" context="{'group_by': 'audit_type'}"/>
+                    <filter string="Request Date" name="group_by_date" context="{'group_by': 'requested_at:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action & Menus -->
+    <record id="action_viesac_audit_log" model="ir.actions.act_window">
+        <field name="name">VIESAC Audit Proofs</field>
+        <field name="res_model">viesac.audit.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No compliance audits recorded yet!
+            </p>
+            <p>
+                When you verify contacts or confirm sales orders and invoices, legal tax compliance audit proofs and certificates are stored here automatically.
+            </p>
+        </field>
+    </record>
+
+    <!-- Main Menu Structure under Invoicing -->
+    <menuitem id="menu_viesac_root"
+              name="VIESAC Compliance"
+              parent="account.menu_finance"
+              sequence="25"/>
+
+    <menuitem id="menu_viesac_audits"
+              name="Audit Proof Archive"
+              parent="menu_viesac_root"
+              action="action_viesac_audit_log"
+              sequence="10"/>
+</odoo>

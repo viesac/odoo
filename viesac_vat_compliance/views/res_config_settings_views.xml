@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_viesac" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.viesac</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="85"/>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="VIESAC Compliance" string="VIESAC Compliance" data-key="viesac_vat_compliance" groups="base.group_system">
+                    <h2>VIESAC Global VAT, GST &amp; EORI Compliance</h2>
+                    <div class="row mt16 o_settings_container" id="viesac_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box" id="viesac_api_settings">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">API Connection</span>
+                                <div class="text-muted content-group">
+                                    One VIESAC API account is shared by this Odoo database. Registry availability and certificate downloads depend on your VIESAC plan.
+                                </div>
+                                <div class="content-group mt8">
+                                    <div class="row mt8">
+                                        <label for="viesac_api_key" class="col-lg-3 o_light_label"/>
+                                        <field name="viesac_api_key" password="True"/>
+                                    </div>
+                                    <div class="row mt8" groups="base.group_no_one">
+                                        <label for="viesac_base_url" class="col-lg-3 o_light_label"/>
+                                        <field name="viesac_base_url"/>
+                                    </div>
+                                    <div class="mt16">
+                                        <button name="action_test_viesac_connection" type="object" string="Test Connection &amp; Check Quota" class="btn btn-primary"/>
+                                        <a href="https://viesac.eu/app/api" target="_blank" role="button" class="btn btn-link ms-2">Get API Key on VIESAC Portal â†—</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box" id="viesac_policies_settings">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Compliance &amp; Hold Policies</span>
+                                <div class="text-muted content-group">
+                                    Control how pending tax authority checks and vendor bills are handled.
+                                </div>
+                                <div class="content-group mt8">
+                                    <div class="row mt8">
+                                        <label for="viesac_webhook_secret" class="col-lg-4 o_light_label"/>
+                                        <field name="viesac_webhook_secret" password="True"/>
+                                    </div>
+                                    <div class="text-muted small">Optional webhook URL: /viesac/webhook. Use the same secret in the VIESAC portal. Without a secret, webhook requests are rejected; scheduled polling remains available.</div>
+                                    <div class="row mt8">
+                                        <label for="viesac_vendor_bill_mode" class="col-lg-4 o_light_label"/>
+                                        <field name="viesac_vendor_bill_mode"/>
+                                    </div>
+                                    <div class="row mt8">
+                                        <field name="viesac_hold_deliveries" class="col-lg-1"/>
+                                        <label for="viesac_hold_deliveries" class="col-lg-11 o_light_label"/>
+                                    </div>
+                                    <div class="row mt8">
+                                        <field name="viesac_auto_attach_certificates" class="col-lg-1"/>
+                                        <label for="viesac_auto_attach_certificates" class="col-lg-11 o_light_label"/>
+                                    </div>
+                                    <div class="row mt8">
+                                        <label for="viesac_certificate_locale" class="col-lg-4 o_light_label"/>
+                                        <field name="viesac_certificate_locale"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
